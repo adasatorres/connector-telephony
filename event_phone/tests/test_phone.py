@@ -3,22 +3,25 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.tests.common import TransactionCase
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class TestEventPhone(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.fr_country_id = self.env.ref("base.fr").id
-        self.phco = self.env["phone.common"]
-        self.env.company.write({"country_id": self.fr_country_id})
-        event = self.env["event.event"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.fr_country_id = cls.env.ref("base.fr").id
+        cls.phco = cls.env["phone.common"]
+        cls.env.company.write({"country_id": cls.fr_country_id})
+        event = cls.env["event.event"].create(
             {
                 "name": "OCA days",
                 "date_begin": "2021-05-15",
                 "date_end": "2021-05-16",
             }
         )
-        self.test_record = self.env["event.registration"].create(
+        cls.test_record = cls.env["event.registration"].create(
             {
                 "event_id": event.id,
                 "name": "Alexis de Lattre",
@@ -27,6 +30,8 @@ class TestEventPhone(TransactionCase):
         )
 
     def test_lookup(self):
+        r = self.phco._get_phone_models()
+        _logger.info(r)
         res = self.phco.get_record_from_phone_number("0678626262")
         self.assertIsInstance(res, tuple)
         self.assertEqual(res[0], "event.registration")
