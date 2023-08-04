@@ -138,7 +138,7 @@ class AsteriskServer(models.Model):
                     try:
                         check_str[1].encode("ascii")
                     except UnicodeEncodeError:
-                        raise ValidationError(
+                        with raise ValidationError(
                             _(
                                 "The '%s' should only have ASCII caracters for "
                                 "the Asterisk server '%s'" % (check_str[0], server.name)
