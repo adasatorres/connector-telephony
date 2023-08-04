@@ -6,19 +6,20 @@ from odoo.tests.common import TransactionCase
 
 
 class TestEventPhone(TransactionCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         super().setUp()
-        self.fr_country_id = self.env.ref("base.fr").id
-        self.phco = self.env["phone.common"]
-        self.env.company.write({"country_id": self.fr_country_id})
-        event = self.env["event.event"].create(
+        cls.fr_country_id = cls.env.ref("base.fr").id
+        cls.phco = cls.env["phone.common"]
+        self.env.company.write({"country_id": cls.fr_country_id})
+        event = cls.env["event.event"].create(
             {
                 "name": "OCA days",
                 "date_begin": "2021-05-15",
                 "date_end": "2021-05-16",
             }
         )
-        self.test_record = self.env["event.registration"].create(
+        cls.test_record = cls.env["event.registration"].create(
             {
                 "event_id": event.id,
                 "name": "Alexis de Lattre",
