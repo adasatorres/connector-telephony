@@ -6,12 +6,13 @@ from odoo.tests.common import TransactionCase
 
 
 class TestRecruitmentPhone(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.fr_country_id = self.env.ref("base.fr").id
-        self.phco = self.env["phone.common"]
-        self.env.company.write({"country_id": self.fr_country_id})
-        self.test_record = self.env["hr.applicant"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.fr_country_id = cls.env.ref("base.fr").id
+        cls.phco = cls.env["phone.common"]
+        cls.env.company.write({"country_id": cls.fr_country_id})
+        cls.test_record = cls.env["hr.applicant"].create(
             {
                 "name": "Expert Odoo",
                 "partner_name": "Alexis de Lattre",
