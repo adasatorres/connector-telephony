@@ -73,7 +73,7 @@ class PhoneCommon(models.AbstractModel):
             raise UserError(
                 _("Click to dial with Asterisk failed.\nHere is the error: '%s'")
                 % str(e)
-            )
+            ) from e
         if res_req.status_code != 200:
             raise UserError(
                 _("Click to dial with Asterisk failed.\nHTTP error code: %s.")
