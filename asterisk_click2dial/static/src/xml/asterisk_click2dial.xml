@@ -8,11 +8,11 @@
 
     <!-- Add phone button in top right menu for "Open Caller" -->
     <t t-name="asterisk_click2dial.systray.OpenCaller">
-        <li class="o_mail_systray_item">
+        <div class="o_mail_systray_item">
             <a id="asterisk-open-caller" href="#" title="Open Caller" role="button">
                 <i class="fa fa-phone" role="img" aria-label="Open Caller" />
             </a>
-        </li>
+        </div>
     </t>
 
     <!-- The Dial button in the phone widget for click2dial feature

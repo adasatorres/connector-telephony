@@ -4,7 +4,7 @@
 
 {
     "name": "Asterisk connector",
-    "version": "16.0.2.0.0",
+    "version": "15.0.1.0.0",
     "category": "Phone",
     "license": "AGPL-3",
     "summary": "Asterisk-Odoo connector",
@@ -13,21 +13,23 @@
     "website": "https://github.com/OCA/connector-telephony",
     "depends": ["base_phone"],
     "external_dependencies": {"python": ["requests"]},
+    "demo": ["demo/asterisk_click2dial_demo.xml"],
     "data": [
-        "views/asterisk_server.xml",
-        "views/res_users.xml",
         "security/ir.model.access.csv",
         "security/asterisk_security.xml",
-       
+        "views/asterisk_server.xml",
+        "views/res_users.xml",
     ],
-    "demo": ["demo/asterisk_click2dial_demo.xml"],
-    "qweb": ["static/src/xml/asterisk_click2dial.xml"],
-    "application": True,
-    "installable": True,
-    "assets" : {
-        'web.assets_backend' : [
-            '/asterisk_click2dial/static/src/js/asterisk_click2dial.js',
-            '/asterisk_click2dial/static/src/scss/asterisk.scss'
-        ]
-    }
+    "assets": {
+        "web.assets_backend": [
+            "asterisk_click2dial/static/src/xml/asterisk_click2dial.xml"
+
+        ],
+        "web.assets_common" : [
+            "asterisk_click2dial/static/src/scss/asterisk.scss",
+            "asterisk_click2dial/static/src/js/asterisk_click2dial.js"
+             
+        ],     
+    },
+    
 }

@@ -2,7 +2,7 @@
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
@@ -98,13 +98,13 @@ class ResUsers(models.Model):
                 if check_string[1]:
                     try:
                         check_string[1].encode("ascii")
-                    except UnicodeEncodeError as e:
-                        raise ValidationError(
+                    except UnicodeEncodeError:
+                        raise ValidationError from exceptions(
                             _(
-                                f"The '{check_string[0]}' for the user '{user.name}'"
-                                + " should only have ASCII caracters"
-                            )
-                        ) from e
+                                "The '{0}' for the user '{1}' should only have "
+                                "ASCII caracters"
+                            ).format(check_string[0], user.name)
+                        )
 
     @api.depends("asterisk_chan_type", "resource")
     def _compute_asterisk_chan_name(self):
